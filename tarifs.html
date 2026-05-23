@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarifs — FR Coiffure · Genève Plainpalais</title>
+  <meta name="description" content="Tarifs FR Coiffure Genève — coupe, coloration, balayage, lissage, extensions. Rue de Carouge 25, Plainpalais." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ══════════════════════════════════════════
+       TOKENS
+    ══════════════════════════════════════════ */
+    :root {
+      --accent:  #D94018;
+      --dark:    #3A3A3A;
+      --mid:     #8C8C8C;
+      --light:   #E8E8E8;
+      --white:   #FFFFFF;
+      --cream:   #FAF8F5;
+      --serif:   'Cormorant Garamond', Georgia, serif;
+      --sans:    'DM Sans', system-ui, sans-serif;
+      --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+      --nav:     72px;
+      --pad:     clamp(24px, 5.5vw, 88px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      color: var(--dark);
+      background: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; width: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ══════════════════════════════════════════
+       CURSOR
+    ══════════════════════════════════════════ */
+    @media (pointer: fine) { body, a, button { cursor: none; } }
+    .c-dot {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent); pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width .2s var(--ease), height .2s var(--ease);
+      will-change: left, top;
+    }
+    .c-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1.5px solid rgba(217,64,24,.4);
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width .3s var(--ease), height .3s var(--ease), border-color .3s;
+      will-change: left, top;
+    }
+    .c-dot.h { width: 12px; height: 12px; }
+    .c-ring.h { width: 56px; height: 56px; border-color: rgba(217,64,24,.7); }
+
+    /* ══════════════════════════════════════════
+       MENU OVERLAY
+    ══════════════════════════════════════════ */
+    .overlay {
+      position: fixed; inset: 0; z-index: 90;
+      background: var(--white);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: var(--pad);
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path .65s var(--ease);
+      pointer-events: none;
+    }
+    .overlay.open { clip-path: inset(0 0 0% 0); pointer-events: all; }
+    .overlay-nav { margin-top: 16px; }
+    .overlay-nav a {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 5.5vw, 5rem);
+      font-weight: 300; line-height: 1.18;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .5s var(--ease), transform .5s var(--ease), color .3s;
+    }
+    .overlay.open .overlay-nav a { opacity: 1; transform: none; }
+    .overlay.open .overlay-nav a:nth-child(1) { transition-delay: .12s; }
+    .overlay.open .overlay-nav a:nth-child(2) { transition-delay: .19s; }
+    .overlay.open .overlay-nav a:nth-child(3) { transition-delay: .26s; }
+    .overlay.open .overlay-nav a:nth-child(4) { transition-delay: .33s; }
+    .overlay.open .overlay-nav a:nth-child(5) { transition-delay: .40s; }
+    .overlay.open .overlay-nav a:nth-child(6) { transition-delay: .47s; }
+    .overlay-nav a:hover { color: var(--accent); }
+    .overlay-nav a.active { color: var(--accent); }
+    .overlay-footer {
+      position: absolute; bottom: var(--pad); left: var(--pad); right: var(--pad);
+      display: flex; justify-content: space-between;
+      font-size: .75rem; color: var(--mid); letter-spacing: .07em;
+    }
+    .overlay-line {
+      position: absolute; top: var(--nav); left: var(--pad); right: var(--pad);
+      height: 1px; background: var(--light);
+    }
+
+    /* ══════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--pad);
+      background: rgba(255,255,255,.93);
+      backdrop-filter: blur(18px) saturate(1.4);
+      border-bottom: 1px solid var(--light);
+    }
+    .nav-btn {
+      display: flex; align-items: center; gap: 10px;
+      font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--dark);
+    }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; width: 22px; }
+    .hamburger span {
+      display: block; height: 1px; background: currentColor;
+      transition: transform .4s var(--ease), opacity .3s;
+      transform-origin: center;
+    }
+    .nav-btn.open .hamburger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-btn.open .hamburger span:nth-child(2) { opacity: 0; }
+    .nav-btn.open .hamburger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .nav-logo {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center;
+    }
+    .nav-logo-img { height: 38px; width: auto; display: block; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 22px; border-radius: 100px;
+      background: var(--accent); color: var(--white);
+      font-size: .7rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      transition: background .3s, transform .25s var(--ease);
+    }
+    .nav-cta:hover { background: #b83510; transform: translateY(-1px); }
+    .nav-cta svg { width: 13px; height: 13px; }
+
+    /* ══════════════════════════════════════════
+       SCROLL REVEAL
+    ══════════════════════════════════════════ */
+    .r { opacity: 0; transform: translateY(28px); transition: opacity .85s var(--ease), transform .85s var(--ease); }
+    .r.right { transform: translateX(28px); }
+    .r.in { opacity: 1 !important; transform: none !important; }
+
+    /* ══════════════════════════════════════════
+       PAGE HERO
+    ══════════════════════════════════════════ */
+    .page-hero {
+      padding-top: var(--nav);
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 52vh;
+      border-bottom: 1px solid var(--light);
+    }
+    .ph-left {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: clamp(48px,6vw,88px) var(--pad) clamp(48px,5vw,72px);
+      border-right: 1px solid var(--light);
+    }
+    .ph-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      font-size: .67rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 24px;
+    }
+    .ph-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--mid); }
+    .ph-h1 {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 9vw, 9rem);
+      font-weight: 300; line-height: .92;
+      letter-spacing: -.025em; color: var(--dark);
+    }
+    .ph-h1 em { font-style: italic; color: var(--accent); }
+    .ph-right {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: clamp(48px,6vw,88px) var(--pad) clamp(48px,5vw,72px);
+      background: var(--cream);
+    }
+    .ph-note {
+      font-size: .88rem; line-height: 1.85; color: var(--mid); font-weight: 300;
+      max-width: 380px; margin-bottom: 36px;
+    }
+    .ph-note strong { color: var(--dark); font-weight: 500; }
+    .btn-fill {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 13px 30px; border-radius: 100px;
+      background: var(--accent); color: var(--white);
+      font-size: .73rem; font-weight: 500; letter-spacing: .09em; text-transform: uppercase;
+      width: fit-content;
+      transition: background .3s, transform .25s var(--ease);
+    }
+    .btn-fill:hover { background: #b83510; transform: translateY(-2px); }
+
+    /* ══════════════════════════════════════════
+       CATEGORY TABS (filter)
+    ══════════════════════════════════════════ */
+    .tarifs-nav {
+      position: sticky; top: var(--nav); z-index: 50;
+      background: rgba(255,255,255,.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light);
+      padding: 0 var(--pad);
+      display: flex; gap: 0; overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tarifs-nav::-webkit-scrollbar { display: none; }
+    .tn-link {
+      display: inline-flex; align-items: center;
+      padding: 16px 20px;
+      font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--mid); white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color .3s, border-color .3s;
+    }
+    .tn-link:hover { color: var(--dark); }
+    .tn-link.active { color: var(--accent); border-color: var(--accent); }
+
+    /* ══════════════════════════════════════════
+       TARIFS CONTENT
+    ══════════════════════════════════════════ */
+    .tarifs-body {
+      padding: clamp(64px,8vw,110px) var(--pad);
+    }
+
+    /* Category block */
+    .tarifs-block {
+      display: grid; grid-template-columns: 280px 1fr;
+      gap: 0;
+      border-top: 1px solid var(--light);
+      padding: clamp(48px,6vw,80px) 0;
+      scroll-margin-top: calc(var(--nav) + 56px);
+    }
+    .tarifs-block:last-of-type { border-bottom: 1px solid var(--light); }
+
+    .tb-left { padding-right: 48px; }
+    .tb-num {
+      font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .tb-title {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      font-weight: 300; line-height: 1.1;
+    }
+    .tb-title em { font-style: italic; color: var(--accent); }
+    .tb-subtitle {
+      font-size: .75rem; color: var(--mid); font-weight: 300;
+      margin-top: 10px; line-height: 1.6; max-width: 200px;
+    }
+
+    .tb-right {}
+
+    /* Sub-category within a block */
+    .tb-sub {
+      margin-bottom: 40px;
+    }
+    .tb-sub:last-child { margin-bottom: 0; }
+    .tb-sub-title {
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--mid); padding-bottom: 12px;
+      border-bottom: 1px solid var(--light);
+      margin-bottom: 0;
+    }
+
+    /* Price rows */
+    .price-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 24px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--light);
+      transition: background .2s;
+    }
+    .price-row:hover { background: var(--cream); margin: 0 -16px; padding: 14px 16px; }
+    .price-row:last-child { border-bottom: none; }
+    .pr-name {
+      font-family: var(--serif); font-style: italic;
+      font-size: 1rem; font-weight: 300; color: var(--dark);
+      line-height: 1.3;
+    }
+    .pr-dots {
+      flex: 1; border-bottom: 1px dotted var(--light);
+      margin: 0 12px; position: relative; top: -4px;
+      min-width: 24px;
+    }
+    .pr-price {
+      font-family: var(--serif); font-size: 1rem;
+      font-weight: 400; color: var(--dark);
+      white-space: nowrap; text-align: right;
+    }
+    .pr-price.devis {
+      font-family: var(--sans); font-size: .78rem; font-style: normal;
+      font-weight: 300; color: var(--mid);
+    }
+
+    /* Special discount row */
+    .price-row.discount .pr-price {
+      color: var(--accent); font-weight: 500;
+    }
+
+    /* ══════════════════════════════════════════
+       MENTION / NOTE
+    ══════════════════════════════════════════ */
+    .tarifs-mention {
+      display: flex; gap: 20px; align-items: flex-start;
+      margin-top: 60px; padding: 28px 32px;
+      background: var(--cream); border-left: 3px solid var(--accent);
+    }
+    .tarifs-mention-icon {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
+      fill: none; stroke: var(--accent); stroke-width: 1.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .tarifs-mention p {
+      font-size: .82rem; line-height: 1.8; color: var(--mid); font-weight: 300;
+    }
+    .tarifs-mention p strong { color: var(--dark); font-weight: 500; }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    .footer {
+      background: var(--dark); color: var(--white);
+      padding: clamp(60px,8vw,96px) var(--pad) 36px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+      gap: 40px; padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .f-logo {
+      font-family: var(--serif); font-size: 1.35rem;
+      letter-spacing: .22em; text-transform: uppercase; margin-bottom: 18px;
+    }
+    .f-desc { font-size: .78rem; line-height: 1.85; color: rgba(255,255,255,.42); max-width: 230px; font-weight: 300; }
+    .f-socials { display: flex; gap: 12px; margin-top: 26px; }
+    .f-soc {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .62rem; letter-spacing: .04em; text-transform: uppercase;
+      transition: border-color .3s, background .3s;
+    }
+    .f-soc:hover { border-color: var(--accent); background: var(--accent); }
+    .f-col h4 {
+      font-size: .64rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(255,255,255,.35); margin-bottom: 22px; font-weight: 400;
+    }
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .f-col ul li a { font-size: .8rem; color: rgba(255,255,255,.62); font-weight: 300; transition: color .3s; }
+    .f-col ul li a:hover { color: var(--white); }
+    .f-addr { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.95; font-weight: 300; }
+    .f-addr strong { color: rgba(255,255,255,.82); font-weight: 400; display: block; margin-bottom: 6px; }
+    .footer-btm {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 28px; font-size: .7rem; color: rgba(255,255,255,.28); letter-spacing: .05em;
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; }
+      .ph-left { border-right: none; border-bottom: 1px solid var(--light); }
+      .tarifs-block { grid-template-columns: 1fr; gap: 32px; }
+      .tb-left { padding-right: 0; }
+    }
+    @media (max-width: 640px) {
+      :root { --pad: 20px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-btm { flex-direction: column; gap: 8px; text-align: center; }
+      .ph-h1 { font-size: clamp(3.2rem, 14vw, 5rem); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+
+  <!-- MENU OVERLAY -->
+  <div class="overlay" id="overlay">
+    <div class="overlay-line"></div>
+    <nav class="overlay-nav">
+      <a href="FR_Coiffure_Site.html#services">Nos Prestations</a>
+      <a href="FR_Coiffure_Site.html#story">Notre Maison</a>
+      <a href="FR_Coiffure_Site.html#team">L'Équipe</a>
+      <a href="tarifs.html" class="active">Tarifs</a>
+      <a href="FR_Coiffure_Site.html#location">Nous Trouver</a>
+      <a href="FR_Coiffure_Site.html#social">Instagram</a>
+    </nav>
+    <div class="overlay-footer">
+      <span>Rue de Carouge 25 · 1205 Genève</span>
+      <span>+41 (0)22 320 00 00</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <button class="nav-btn" id="menuBtn" aria-label="Menu">
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+      Menu
+    </button>
+    <a href="FR_Coiffure_Site.html" class="nav-logo">
+      <img src="logo.png" alt="FR Coiffure" class="nav-logo-img">
+    </a>
+    <a href="tel:+41223200000" class="nav-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Prendre rendez-vous
+    </a>
+  </header>
+
+  <!-- ░░ PAGE HERO ░░ -->
+  <div class="page-hero">
+    <div class="ph-left">
+      <div class="ph-eyebrow r">Transparence &amp; Qualité</div>
+      <h1 class="ph-h1 r" style="transition-delay:.1s">
+        Nos<br><em>Tarifs</em>
+      </h1>
+    </div>
+    <div class="ph-right">
+      <p class="ph-note r" style="transition-delay:.15s">
+        <strong>Nos tarifs incluent le shampoing traitant et soin.</strong><br><br>
+        Consultation gratuite. Les prix sont indicatifs et peuvent varier selon la longueur et la densité des cheveux. Un devis personnalisé vous sera proposé lors de votre visite.
+      </p>
+      <a href="tel:+41223200000" class="btn-fill r" style="transition-delay:.25s">
+        Prendre rendez-vous →
+      </a>
+    </div>
+  </div>
+
+  <!-- ░░ CATEGORY TABS ░░ -->
+  <nav class="tarifs-nav" aria-label="Catégories de tarifs">
+    <a href="#coiffage" class="tn-link active">Coiffage</a>
+    <a href="#couleur" class="tn-link">Couleur</a>
+    <a href="#lissage" class="tn-link">Lissage &amp; Forme</a>
+    <a href="#homme" class="tn-link">Homme</a>
+    <a href="#enfants" class="tn-link">Enfants</a>
+  </nav>
+
+  <!-- ░░ TARIFS BODY ░░ -->
+  <main class="tarifs-body">
+
+    <!-- COIFFAGE -->
+    <div class="tarifs-block r" id="coiffage">
+      <div class="tb-left">
+        <div class="tb-num">01</div>
+        <h2 class="tb-title">Coif-<br>fage</h2>
+        <p class="tb-subtitle">Mises en forme &amp; occasions spéciales</p>
+      </div>
+      <div class="tb-right">
+        <div class="tb-sub">
+          <div class="tb-sub-title">Mises en forme</div>
+          <div class="price-row">
+            <span class="pr-name">Tresse (30min)</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">35 CHF. / 40 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Chignon</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">dès 80 CHF.</span>
+          </div>
+        </div>
+        <div class="tb-sub">
+          <div class="tb-sub-title">Mariage &amp; Événements</div>
+          <div class="price-row">
+            <span class="pr-name">Coiffure de mariée</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">de 120 CHF. à 150 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Essai coiffure de mariée</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">80 CHF. / 90 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Make up</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price devis">selon devis maquilleuse free-lance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COULEUR -->
+    <div class="tarifs-block r" id="couleur">
+      <div class="tb-left">
+        <div class="tb-num">02</div>
+        <h2 class="tb-title">Cou-<br>leur</h2>
+        <p class="tb-subtitle">Colorations &amp; techniques de lumière</p>
+      </div>
+      <div class="tb-right">
+        <div class="tb-sub">
+          <div class="tb-sub-title">Colorations</div>
+          <div class="price-row">
+            <span class="pr-name">Coloration Minérale</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">dès 75 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Couleur racine</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">65 CHF. / 70 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Couleur globale</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">75 / 85 / 90 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Couleur placement</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">80 / 90 / 100 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Gloss color</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">60 / 70 / 80 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Dose supplémentaire color</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">10 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Décoloration</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">dès 80 CHF.</span>
+          </div>
+        </div>
+        <div class="tb-sub">
+          <div class="tb-sub-title">Techniques de lumière</div>
+          <div class="price-row">
+            <span class="pr-name">Balayage</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">de 80 CHF. à 130 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Mèches</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">de 80 CHF. à 150 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Tie and Dye / Ombré</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">dès 120 CHF.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISSAGE & FORME -->
+    <div class="tarifs-block r" id="lissage">
+      <div class="tb-left">
+        <div class="tb-num">03</div>
+        <h2 class="tb-title">Lis-<br>sage</h2>
+        <p class="tb-subtitle">Lissages permanents &amp; formes</p>
+      </div>
+      <div class="tb-right">
+        <div class="tb-sub">
+          <div class="tb-sub-title">Lissages</div>
+          <div class="price-row">
+            <span class="pr-name">Lissage brésilien Kératine (KERASILK)</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price devis">selon devis</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Lissage X-Tenso</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">de 80 CHF. à 120 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Lissage X-Tenso avec plaque</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price devis">selon devis</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Lissage japonais permanent (Lakme)</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price devis">selon devis</span>
+          </div>
+        </div>
+        <div class="tb-sub">
+          <div class="tb-sub-title">Formes &amp; Ondulations</div>
+          <div class="price-row">
+            <span class="pr-name">Beach waves</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price devis">dès 100 CHF. selon consultation</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Permanente</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price devis">dès 100 CHF. selon consultation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOMME -->
+    <div class="tarifs-block r" id="homme">
+      <div class="tb-left">
+        <div class="tb-num">04</div>
+        <h2 class="tb-title">Hom-<br><em>me</em></h2>
+        <p class="tb-subtitle">Coupe &amp; barbe</p>
+      </div>
+      <div class="tb-right">
+        <div class="tb-sub">
+          <div class="tb-sub-title">Prestations homme</div>
+          <div class="price-row">
+            <span class="pr-name">Coupe homme</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">55 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">Taille de la barbe</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">10 CHF.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENFANTS -->
+    <div class="tarifs-block r" id="enfants">
+      <div class="tb-left">
+        <div class="tb-num">05</div>
+        <h2 class="tb-title">En-<br><em>fants</em></h2>
+        <p class="tb-subtitle">Fille &amp; Garçon</p>
+      </div>
+      <div class="tb-right">
+        <div class="tb-sub">
+          <div class="tb-sub-title">Fille</div>
+          <div class="price-row discount">
+            <span class="pr-name">− 21 ans</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">−20% sur les tarifs normaux</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">− 16 ans</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">65 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">− 11 ans</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">45 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">− 6 ans</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">30 CHF.</span>
+          </div>
+        </div>
+        <div class="tb-sub">
+          <div class="tb-sub-title">Garçon</div>
+          <div class="price-row">
+            <span class="pr-name">− 21 ans</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">45 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">− 16 ans</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">40 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">− 11 ans</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">40 CHF.</span>
+          </div>
+          <div class="price-row">
+            <span class="pr-name">− 6 ans</span>
+            <span class="pr-dots"></span>
+            <span class="pr-price">30 CHF.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENTION -->
+    <div class="tarifs-mention r">
+      <svg class="tarifs-mention-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <p>
+        <strong>Nos tarifs incluent le shampoing traitant et soin. Consultation gratuite.</strong><br>
+        Les prix affichés sont indicatifs et peuvent varier selon la longueur et la densité des cheveux. Un devis personnalisé vous sera proposé lors de votre consultation en salon.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="f-logo">FR Coiffure</div>
+        <p class="f-desc">Salon de coiffure premium au cœur de Plainpalais, Genève. Un lieu de création où expertise et élégance se rencontrent.</p>
+        <div class="f-socials">
+          <a href="https://instagram.com/frcoiffure" class="f-soc" target="_blank" rel="noopener">Ig</a>
+          <a href="#" class="f-soc">Fb</a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Coiffure</h4>
+        <ul>
+          <li><a href="FR_Coiffure_Site.html#services">Coupe &amp; Coiffage</a></li>
+          <li><a href="FR_Coiffure_Site.html#services">Coloration</a></li>
+          <li><a href="FR_Coiffure_Site.html#services">Mèches &amp; Balayage</a></li>
+          <li><a href="FR_Coiffure_Site.html#services">Soins capillaires</a></li>
+          <li><a href="FR_Coiffure_Site.html#services">Lissage</a></li>
+          <li><a href="FR_Coiffure_Site.html#services">Extensions</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>À Propos</h4>
+        <ul>
+          <li><a href="FR_Coiffure_Site.html#story">Notre histoire</a></li>
+          <li><a href="FR_Coiffure_Site.html#team">L'équipe</a></li>
+          <li><a href="#">Nos valeurs</a></li>
+          <li><a href="tarifs.html">Tarifs</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Salon</h4>
+        <ul>
+          <li><a href="FR_Coiffure_Site.html">FR Coiffure</a></li>
+          <li><a href="FR_Coiffure_Site.html#location">Plainpalais</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Contact</h4>
+        <div class="f-addr">
+          <strong>FR Coiffure</strong>
+          Rue de Carouge 25<br>
+          1205 Genève<br><br>
+          +41 (0)22 320 00 00<br>
+          info@frcoiffure.ch
+        </div>
+      </div>
+    </div>
+    <div class="footer-btm">
+      <span>© 2026 FR Coiffure · Plainpalais, Genève</span>
+      <span>Mentions légales · Confidentialité</span>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* CURSOR */
+    var dot  = document.getElementById('cDot');
+    var ring = document.getElementById('cRing');
+    var isFine = window.matchMedia('(pointer: fine)').matches;
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    if (isFine) {
+      document.addEventListener('mousemove', function(e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      });
+      (function raf() {
+        rx += (mx - rx) * 0.11; ry += (my - ry) * 0.11;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(raf);
+      })();
+      document.querySelectorAll('a, button, .price-row').forEach(function(el) {
+        el.addEventListener('mouseenter', function() { dot.classList.add('h'); ring.classList.add('h'); });
+        el.addEventListener('mouseleave', function() { dot.classList.remove('h'); ring.classList.remove('h'); });
+      });
+    } else {
+      dot.style.display = ring.style.display = 'none';
+    }
+
+    /* MENU */
+    var btn     = document.getElementById('menuBtn');
+    var overlay = document.getElementById('overlay');
+    var open    = false;
+    btn.addEventListener('click', function() {
+      open = !open;
+      btn.classList.toggle('open', open);
+      overlay.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    overlay.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        open = false;
+        btn.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* REVEAL */
+    var rObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); rObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.r').forEach(function(el) { rObs.observe(el); });
+
+    /* CATEGORY TABS — active on scroll */
+    var sections = document.querySelectorAll('.tarifs-block');
+    var tabs     = document.querySelectorAll('.tn-link');
+    var sObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          tabs.forEach(function(t) { t.classList.remove('active'); });
+          var activeTab = document.querySelector('.tn-link[href="#' + e.target.id + '"]');
+          if (activeTab) activeTab.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    sections.forEach(function(s) { sObs.observe(s); });
+
+    /* SMOOTH SCROLL for tabs */
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector(tab.getAttribute('href'));
+        if (target) {
+          var offset = document.querySelector('.nav').offsetHeight + document.querySelector('.tarifs-nav').offsetHeight + 16;
+          var top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      });
+    });
+
+  })();
+  </script>
+</body>
+</html>
