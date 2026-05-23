@@ -215,6 +215,15 @@
       height: 100%;
     }
     .hero-right video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sound-btn {
+      position: absolute; bottom: 20px; left: 20px; z-index: 10;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.35);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background .3s;
+    }
+    .sound-btn:hover { background: rgba(0,0,0,.7); }
+    .sound-btn svg { width: 18px; height: 18px; fill: white; }
     .hero-scroll-hint {
       position: absolute; bottom: 36px; right: var(--pad);
       display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -685,7 +694,13 @@
       </div>
     </div>
     <div class="hero-right">
-      <video src="video-hero.mp4" autoplay muted loop playsinline></video>
+      <video id="heroVideo" src="video-hero.mp4" autoplay loop playsinline></video>
+      <button class="sound-btn" id="soundBtn" title="Couper/activer le son" onclick="toggleSound()">
+        <!-- icône son activé -->
+        <svg id="iconOn" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <!-- icône son coupé -->
+        <svg id="iconOff" viewBox="0 0 24 24" style="display:none"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17 18.99l2 2.01L20.73 19 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+      </button>
       <div class="hero-scroll-hint">Scroll</div>
     </div>
   </section>
@@ -990,6 +1005,29 @@
   </footer>
 
   <script>
+  /* ── SON VIDÉO ─────────────────────────── */
+  function toggleSound() {
+    var video = document.getElementById('heroVideo');
+    var iconOn  = document.getElementById('iconOn');
+    var iconOff = document.getElementById('iconOff');
+    video.muted = !video.muted;
+    iconOn.style.display  = video.muted ? 'none'  : '';
+    iconOff.style.display = video.muted ? ''      : 'none';
+  }
+  /* Démarrage : son activé, mais si le navigateur bloque l'autoplay avec son,
+     on passe en muet silencieusement et on met à jour l'icône */
+  document.addEventListener('DOMContentLoaded', function() {
+    var video = document.getElementById('heroVideo');
+    var iconOn  = document.getElementById('iconOn');
+    var iconOff = document.getElementById('iconOff');
+    video.play().catch(function() {
+      video.muted = true;
+      video.play();
+      iconOn.style.display  = 'none';
+      iconOff.style.display = '';
+    });
+  });
+
   (function () {
     'use strict';
 
