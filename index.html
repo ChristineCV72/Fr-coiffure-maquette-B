@@ -633,9 +633,62 @@
       .tarifs-cat:nth-last-child(-n+2) { border-bottom: 1px solid var(--light); }
       .tarifs-cat:last-child { border-bottom: none; }
     }
+    /* ══════════════════════════════════════════
+       ÉCRAN D'ENTRÉE
+    ══════════════════════════════════════════ */
+    #introScreen {
+      position: fixed; inset: 0; z-index: 9000;
+      background: #1a1a1a;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: opacity .8s ease;
+    }
+    #introScreen .intro-logo {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 12px;
+    }
+    #introScreen .intro-logo em { color: var(--accent); font-style: italic; }
+    #introScreen .intro-sub {
+      font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(255,255,255,.4); margin-bottom: 60px;
+    }
+    #introScreen .intro-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      color: var(--white);
+      animation: pulse 2s ease infinite;
+    }
+    #introScreen .intro-btn svg {
+      width: 48px; height: 48px; fill: none;
+      stroke: var(--accent); stroke-width: 1.2;
+    }
+    #introScreen .intro-btn span {
+      font-size: .68rem; letter-spacing: .24em; text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.06); opacity: .7; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- ÉCRAN D'ENTRÉE -->
+  <div id="introScreen">
+    <div class="intro-logo">FR <em>Coiffure</em></div>
+    <div class="intro-sub">Genève · Plainpalais</div>
+    <div class="intro-btn">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M10 8l6 4-6 4V8z" fill="white" stroke="none"/>
+      </svg>
+      <span>Cliquez pour entrer</span>
+    </div>
+  </div>
 
   <!-- CURSOR -->
   <div class="c-dot" id="cDot"></div>
@@ -1014,17 +1067,27 @@
     iconOn.style.display  = video.muted ? 'none'  : '';
     iconOff.style.display = video.muted ? ''      : 'none';
   }
-  /* Démarrage : son activé, mais si le navigateur bloque l'autoplay avec son,
-     on passe en muet silencieusement et on met à jour l'icône */
+
+  /* ── ÉCRAN D'ENTRÉE ─────────────────────── */
   document.addEventListener('DOMContentLoaded', function() {
+    var intro = document.getElementById('introScreen');
     var video = document.getElementById('heroVideo');
     var iconOn  = document.getElementById('iconOn');
     var iconOff = document.getElementById('iconOff');
-    video.play().catch(function() {
-      video.muted = true;
-      video.play();
-      iconOn.style.display  = 'none';
-      iconOff.style.display = '';
+
+    intro.addEventListener('click', function() {
+      /* Ferme l'écran d'accueil */
+      intro.style.opacity = '0';
+      intro.style.pointerEvents = 'none';
+      setTimeout(function() { intro.style.display = 'none'; }, 800);
+
+      /* Lance la vidéo avec son */
+      video.muted = false;
+      video.play().catch(function() {
+        video.muted = true;
+        iconOn.style.display  = 'none';
+        iconOff.style.display = '';
+      });
     });
   });
 
