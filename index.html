@@ -638,40 +638,42 @@
     ══════════════════════════════════════════ */
     #introScreen {
       position: fixed; inset: 0; z-index: 9000;
-      background: #1a1a1a;
+      background: #ffffff;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       cursor: pointer;
-      transition: opacity .8s ease;
+      transition: opacity .9s ease;
     }
-    #introScreen .intro-logo {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 300; letter-spacing: .25em;
-      text-transform: uppercase; color: var(--white);
-      margin-bottom: 12px;
+    #introScreen .intro-logo-img {
+      height: 80px; width: auto;
+      margin-bottom: 48px;
     }
-    #introScreen .intro-logo em { color: var(--accent); font-style: italic; }
-    #introScreen .intro-sub {
-      font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
-      color: rgba(255,255,255,.4); margin-bottom: 60px;
+    #introScreen .intro-line {
+      width: 1px; height: 180px;
+      background: #cccccc;
+      margin-bottom: 40px;
+      animation: lineGrow 1.2s ease forwards;
+      transform-origin: top;
     }
-    #introScreen .intro-btn {
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-      color: var(--white);
-      animation: pulse 2s ease infinite;
+    @keyframes lineGrow {
+      from { transform: scaleY(0); }
+      to   { transform: scaleY(1); }
     }
-    #introScreen .intro-btn svg {
-      width: 48px; height: 48px; fill: none;
-      stroke: var(--accent); stroke-width: 1.2;
+    #introScreen .intro-bienvenue {
+      font-family: var(--sans);
+      font-size: 1.5rem; font-weight: 300;
+      letter-spacing: .1em; color: #222;
+      animation: fadeUp 1s ease .6s both;
     }
-    #introScreen .intro-btn span {
-      font-size: .68rem; letter-spacing: .24em; text-transform: uppercase;
-      color: rgba(255,255,255,.55);
+    #introScreen .intro-hint {
+      position: absolute; bottom: 48px;
+      font-size: .62rem; letter-spacing: .2em;
+      text-transform: uppercase; color: #aaa;
+      animation: fadeUp 1s ease 1s both;
     }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50%       { transform: scale(1.06); opacity: .7; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -679,15 +681,10 @@
 
   <!-- ÉCRAN D'ENTRÉE -->
   <div id="introScreen">
-    <div class="intro-logo">FR <em>Coiffure</em></div>
-    <div class="intro-sub">Genève · Plainpalais</div>
-    <div class="intro-btn">
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M10 8l6 4-6 4V8z" fill="white" stroke="none"/>
-      </svg>
-      <span>Cliquez pour entrer</span>
-    </div>
+    <img src="logo.png" alt="FR Coiffure" class="intro-logo-img" />
+    <div class="intro-line"></div>
+    <div class="intro-bienvenue">Bienvenue</div>
+    <div class="intro-hint">Cliquez pour entrer</div>
   </div>
 
   <!-- CURSOR -->
