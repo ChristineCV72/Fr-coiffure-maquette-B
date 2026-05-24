@@ -151,8 +151,12 @@
     /* ── POURQUOI NOUS ── */
     .pourquoi {
       background: var(--dark); color: var(--white);
-      padding: clamp(72px,9vw,120px) var(--pad);
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+      display: grid; grid-template-columns: 3fr 2fr;
+      min-height: 80vh; overflow: hidden;
+    }
+    .pourquoi-body {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(72px,8vw,120px) var(--pad);
     }
     .pourquoi-h2 {
       font-family: var(--serif);
@@ -199,7 +203,9 @@
       .techniques-grid { grid-template-columns: 1fr; }
       .galerie-grid { grid-template-columns: 1fr 1fr; }
       .galerie-cell.large { grid-column: span 1; }
-      .pourquoi { grid-template-columns: 1fr; gap: 40px; }
+      .pourquoi { grid-template-columns: 1fr; min-height: auto; }
+      .pourquoi-img { min-height: 70vw; }
+      .pourquoi-body { padding: clamp(48px,8vw,80px) var(--pad); }
     }
     @media (max-width: 640px) {
       :root { --pad: 20px; }
@@ -314,7 +320,10 @@
 
   <!-- POURQUOI NOUS -->
   <section class="pourquoi">
-    <div>
+    <div class="pourquoi-img r" style="transition-delay:.15s">
+      <img src="coloration/coloration-3.jpg" alt="Coloriste FR Coiffure" loading="lazy" />
+    </div>
+    <div class="pourquoi-body">
       <div class="section-label r" style="color:rgba(255,255,255,.35);">Pourquoi Nous</div>
       <h2 class="pourquoi-h2 r" style="transition-delay:.1s">
         L'expertise<br><em>au service</em><br>de votre couleur
@@ -342,9 +351,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="pourquoi-img r right" style="transition-delay:.15s">
-      <img src="coloration/coloration-3.jpg" alt="Coloriste FR Coiffure" loading="lazy" />
     </div>
   </section>
 
