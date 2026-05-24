@@ -54,31 +54,31 @@
 
     /* ── HERO ── */
     .hero {
+      height: 100svh;
+      display: grid; grid-template-columns: 55fr 45fr;
       padding-top: 72px;
-      display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 70vh;
     }
     .hero-body {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: clamp(48px,6vw,96px) var(--pad);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: clamp(48px,6vw,96px) var(--pad) clamp(64px,7vw,100px);
     }
     .eyebrow {
       display: flex; align-items: center; gap: 14px;
       font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
-      color: var(--mid); margin-bottom: 28px;
+      color: var(--mid); margin-bottom: 30px;
     }
     .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--mid); }
     .hero-h1 {
       font-family: var(--serif);
-      font-size: clamp(3.5rem, 7vw, 7rem);
-      font-weight: 300; line-height: 1; letter-spacing: -.02em;
+      font-size: clamp(4rem, 8.5vw, 8.5rem);
+      font-weight: 300; line-height: .95; letter-spacing: -.02em;
     }
     .hero-h1 em { font-style: italic; color: var(--accent); }
     .hero-desc {
-      margin-top: 28px; max-width: 380px;
-      font-size: .88rem; line-height: 1.85; color: var(--mid); font-weight: 300;
+      margin-top: 36px; max-width: 340px;
+      font-size: .88rem; line-height: 1.8; color: var(--mid); font-weight: 300;
     }
-    .hero-cta { margin-top: 40px; }
+    .hero-cta { margin-top: 48px; }
     .btn-fill {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 13px 30px; border-radius: 100px;
@@ -87,8 +87,8 @@
       transition: background .3s, transform .25s var(--ease);
     }
     .btn-fill:hover { background: #b83510; transform: translateY(-2px); }
-    .hero-img { overflow: hidden; background: var(--light); }
-    .hero-img img { height: 100%; }
+    .hero-img { position: relative; overflow: hidden; background: var(--light); height: 100%; }
+    .hero-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
     /* ── SECTION TITRE ── */
     .section-label {
