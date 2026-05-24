@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coloration — FR Coiffure Genève</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #D94018;
+      --dark:   #3A3A3A;
+      --mid:    #8C8C8C;
+      --light:  #E8E8E8;
+      --white:  #FFFFFF;
+      --cream:  #FAF8F5;
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'DM Sans', system-ui, sans-serif;
+      --ease:   cubic-bezier(0.16, 1, 0.3, 1);
+      --pad:    clamp(24px, 5.5vw, 88px);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--dark); background: var(--white); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; object-fit: cover; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--pad);
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--light);
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--mid); transition: color .3s;
+    }
+    .nav-back:hover { color: var(--accent); }
+    .nav-back svg { width: 16px; height: 16px; }
+    .nav-logo-img { height: 38px; width: auto; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 22px; border-radius: 100px;
+      background: var(--accent); color: var(--white);
+      font-size: .7rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      transition: background .3s;
+    }
+    .nav-cta:hover { background: #b83510; }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: 72px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+    }
+    .hero-body {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(48px,6vw,96px) var(--pad);
+    }
+    .eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 28px;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--mid); }
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 7vw, 7rem);
+      font-weight: 300; line-height: 1; letter-spacing: -.02em;
+    }
+    .hero-h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc {
+      margin-top: 28px; max-width: 380px;
+      font-size: .88rem; line-height: 1.85; color: var(--mid); font-weight: 300;
+    }
+    .hero-cta { margin-top: 40px; }
+    .btn-fill {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 13px 30px; border-radius: 100px;
+      background: var(--accent); color: var(--white);
+      font-size: .73rem; font-weight: 500; letter-spacing: .09em; text-transform: uppercase;
+      transition: background .3s, transform .25s var(--ease);
+    }
+    .btn-fill:hover { background: #b83510; transform: translateY(-2px); }
+    .hero-img { overflow: hidden; background: var(--light); }
+    .hero-img img { height: 100%; }
+
+    /* ── SECTION TITRE ── */
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      font-size: .66rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 16px;
+    }
+    .section-label::before { content: ''; width: 22px; height: 1px; background: var(--mid); }
+
+    /* ── TECHNIQUES ── */
+    .techniques {
+      padding: clamp(72px,9vw,120px) var(--pad);
+      background: var(--cream);
+    }
+    .techniques-head { margin-bottom: 60px; }
+    .techniques-h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300; line-height: 1.1;
+    }
+    .techniques-h2 em { font-style: italic; color: var(--accent); }
+    .techniques-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    }
+    .tech-card { background: var(--white); overflow: hidden; }
+    .tech-img { aspect-ratio: 4/3; overflow: hidden; background: var(--light); }
+    .tech-img img { height: 100%; transition: transform .7s var(--ease); }
+    .tech-card:hover .tech-img img { transform: scale(1.06); }
+    .tech-body { padding: 28px 24px 32px; }
+    .tech-num { font-size: .62rem; letter-spacing: .14em; color: var(--mid); margin-bottom: 10px; }
+    .tech-name {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .tech-desc { font-size: .82rem; line-height: 1.75; color: var(--mid); font-weight: 300; }
+
+    /* ── GALERIE ── */
+    .galerie {
+      padding: clamp(72px,9vw,120px) var(--pad);
+    }
+    .galerie-head { margin-bottom: 48px; }
+    .galerie-h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300;
+    }
+    .galerie-h2 em { font-style: italic; color: var(--accent); }
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 12px;
+    }
+    .galerie-cell { overflow: hidden; background: var(--light); }
+    .galerie-cell img { height: 320px; transition: transform .6s var(--ease); }
+    .galerie-cell:hover img { transform: scale(1.05); }
+    .galerie-cell.large { grid-column: span 2; }
+    .galerie-cell.large img { height: 420px; }
+
+    /* ── POURQUOI NOUS ── */
+    .pourquoi {
+      background: var(--dark); color: var(--white);
+      padding: clamp(72px,9vw,120px) var(--pad);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .pourquoi-h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300; line-height: 1.1; margin-bottom: 32px;
+    }
+    .pourquoi-h2 em { font-style: italic; color: rgba(217,64,24,.9); }
+    .pourquoi-list { display: flex; flex-direction: column; gap: 24px; }
+    .pourquoi-item { display: flex; gap: 18px; align-items: flex-start; }
+    .pourquoi-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 6px;
+    }
+    .pourquoi-text { font-size: .85rem; line-height: 1.8; color: rgba(255,255,255,.6); font-weight: 300; }
+    .pourquoi-text strong { color: var(--white); font-weight: 400; display: block; margin-bottom: 4px; }
+    .pourquoi-img { overflow: hidden; border-radius: 0; }
+    .pourquoi-img img { height: 500px; }
+
+    /* ── RDV ── */
+    .rdv {
+      padding: clamp(72px,9vw,120px) var(--pad);
+      text-align: center; background: var(--cream);
+    }
+    .rdv-h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300; margin-bottom: 16px;
+    }
+    .rdv-h2 em { font-style: italic; color: var(--accent); }
+    .rdv-desc { font-size: .88rem; color: var(--mid); margin-bottom: 40px; }
+
+    /* ── FOOTER ── */
+    .footer-mini {
+      background: var(--dark); color: rgba(255,255,255,.35);
+      padding: 28px var(--pad);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .7rem; letter-spacing: .05em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-img { min-height: 55vw; }
+      .techniques-grid { grid-template-columns: 1fr; }
+      .galerie-grid { grid-template-columns: 1fr 1fr; }
+      .galerie-cell.large { grid-column: span 1; }
+      .pourquoi { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 640px) {
+      :root { --pad: 20px; }
+      .galerie-grid { grid-template-columns: 1fr; }
+      .nav-cta span { display: none; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .r { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .r.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Retour
+    </a>
+    <img src="logo.png" alt="FR Coiffure" class="nav-logo-img" />
+    <a href="tel:+41223200000" class="nav-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91A16 16 0 0016.09 17.09l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <span>Prendre rendez-vous</span>
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="eyebrow r">Service · 02</div>
+      <h1 class="hero-h1 r" style="transition-delay:.1s">
+        La <em>coloration</em><br>qui vous ressemble
+      </h1>
+      <p class="hero-desc r" style="transition-delay:.2s">
+        Chez FR Coiffure, la coloration est un art. Chaque nuance est choisie pour sublimer votre carnation, votre personnalité et votre style de vie. Végétale, douce ou oxydante — nous trouvons ensemble votre couleur signature.
+      </p>
+      <div class="hero-cta r" style="transition-delay:.3s">
+        <a href="tel:+41223200000" class="btn-fill">Prendre rendez-vous →</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img
+        src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=900&h=800&fit=crop&q=85"
+        alt="Coloration FR Coiffure Genève"
+        loading="eager"
+      />
+    </div>
+  </section>
+
+  <!-- TECHNIQUES -->
+  <section class="techniques">
+    <div class="techniques-head">
+      <div class="section-label r">Nos Techniques</div>
+      <h2 class="techniques-h2 r" style="transition-delay:.1s">
+        Trois approches,<br><em>une perfection</em>
+      </h2>
+    </div>
+    <div class="techniques-grid">
+      <div class="tech-card r">
+        <div class="tech-img">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=450&fit=crop&q=82" alt="Coloration végétale" loading="lazy" />
+        </div>
+        <div class="tech-body">
+          <div class="tech-num">01</div>
+          <div class="tech-name">Coloration Végétale</div>
+          <p class="tech-desc">100% naturelle, elle respecte le cheveu et le cuir chevelu. Idéale pour les peaux sensibles, elle apporte brillance et vitalité sans agresser la fibre capillaire.</p>
+        </div>
+      </div>
+      <div class="tech-card r" style="transition-delay:.1s">
+        <div class="tech-img">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=450&fit=crop&q=82" alt="Coloration douce" loading="lazy" />
+        </div>
+        <div class="tech-body">
+          <div class="tech-num">02</div>
+          <div class="tech-name">Coloration Douce</div>
+          <p class="tech-desc">Sans ammoniaque, elle enveloppe le cheveu d'une couleur lumineuse et durable. Parfaite pour couvrir les premiers cheveux blancs tout en préservant l'éclat naturel.</p>
+        </div>
+      </div>
+      <div class="tech-card r" style="transition-delay:.2s">
+        <div class="tech-img">
+          <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&h=450&fit=crop&q=82" alt="Coloration oxydante" loading="lazy" />
+        </div>
+        <div class="tech-body">
+          <div class="tech-num">03</div>
+          <div class="tech-name">Coloration Oxydante</div>
+          <p class="tech-desc">Pour des changements radicaux ou une couverture totale des cheveux blancs. Appliquée avec précision par nos coloristes experts pour un résultat longue durée impeccable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="galerie">
+    <div class="galerie-head">
+      <div class="section-label r">Inspirations</div>
+      <h2 class="galerie-h2 r" style="transition-delay:.1s">
+        Nos plus belles <em>réalisations</em>
+      </h2>
+    </div>
+    <div class="galerie-grid">
+      <div class="galerie-cell large r">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&h=420&fit=crop&q=85" alt="Coloration réalisation 1" loading="lazy" />
+      </div>
+      <div class="galerie-cell r" style="transition-delay:.1s">
+        <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=450&h=320&fit=crop&q=82" alt="Coloration réalisation 2" loading="lazy" />
+      </div>
+      <div class="galerie-cell r" style="transition-delay:.15s">
+        <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=450&h=320&fit=crop&q=82" alt="Coloration réalisation 3" loading="lazy" />
+      </div>
+      <div class="galerie-cell r" style="transition-delay:.2s">
+        <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=450&h=320&fit=crop&q=82" alt="Coloration réalisation 4" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- POURQUOI NOUS -->
+  <section class="pourquoi">
+    <div>
+      <div class="section-label r" style="color:rgba(255,255,255,.35);">Pourquoi Nous</div>
+      <h2 class="pourquoi-h2 r" style="transition-delay:.1s">
+        L'expertise<br><em>au service</em><br>de votre couleur
+      </h2>
+      <div class="pourquoi-list r" style="transition-delay:.2s">
+        <div class="pourquoi-item">
+          <div class="pourquoi-dot"></div>
+          <div class="pourquoi-text">
+            <strong>Diagnostic personnalisé</strong>
+            Chaque visite commence par une consultation approfondie pour analyser votre cheveu et définir la couleur idéale.
+          </div>
+        </div>
+        <div class="pourquoi-item">
+          <div class="pourquoi-dot"></div>
+          <div class="pourquoi-text">
+            <strong>Produits haut de gamme</strong>
+            Nous utilisons exclusivement des gammes professionnelles respectueuses du cheveu et de l'environnement.
+          </div>
+        </div>
+        <div class="pourquoi-item">
+          <div class="pourquoi-dot"></div>
+          <div class="pourquoi-text">
+            <strong>Coloristes experts</strong>
+            Notre équipe est formée aux dernières techniques parisiennes pour un résultat toujours à la hauteur de vos attentes.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pourquoi-img r right" style="transition-delay:.15s">
+      <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&h=500&fit=crop&q=85" alt="Coloriste FR Coiffure" loading="lazy" />
+    </div>
+  </section>
+
+  <!-- RDV -->
+  <section class="rdv">
+    <h2 class="rdv-h2 r">Prêt(e) pour votre<br><em>nouvelle couleur ?</em></h2>
+    <p class="rdv-desc r" style="transition-delay:.1s">Contactez-nous pour réserver votre consultation coloration à Genève Plainpalais.</p>
+    <div class="r" style="transition-delay:.2s">
+      <a href="tel:+41223200000" class="btn-fill">Appeler le salon → +41 (0)22 320 00 00</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-mini">
+    <span>© 2026 FR Coiffure · Genève</span>
+    <span>Rue de Carouge 25 · 1205 Genève</span>
+  </footer>
+
+  <script>
+  (function() {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.r').forEach(function(el) { obs.observe(el); });
+  })();
+  </script>
+</body>
+</html>
