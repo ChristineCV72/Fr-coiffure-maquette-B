@@ -1070,6 +1070,13 @@
     var intro = document.getElementById('introScreen');
     var video = document.getElementById('heroVideo');
 
+    /* Si on vient d'une page interne, on saute l'intro */
+    if (window.location.search.indexOf('skip=intro') !== -1) {
+      intro.style.display = 'none';
+      if (video) { video.muted = true; video.play(); }
+      return;
+    }
+
     intro.addEventListener('click', function() {
       /* Ferme l'écran d'accueil */
       intro.style.opacity = '0';
