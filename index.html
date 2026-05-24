@@ -1069,22 +1069,21 @@
   document.addEventListener('DOMContentLoaded', function() {
     var intro = document.getElementById('introScreen');
     var video = document.getElementById('heroVideo');
-    var iconOn  = document.getElementById('iconOn');
-    var iconOff = document.getElementById('iconOff');
 
     intro.addEventListener('click', function() {
       /* Ferme l'écran d'accueil */
       intro.style.opacity = '0';
       intro.style.pointerEvents = 'none';
-      setTimeout(function() { intro.style.display = 'none'; }, 800);
+      setTimeout(function() { intro.style.display = 'none'; }, 900);
 
-      /* Lance la vidéo avec son */
-      video.muted = false;
-      video.play().catch(function() {
-        video.muted = true;
-        iconOn.style.display  = 'none';
-        iconOff.style.display = '';
-      });
+      /* Lance la vidéo avec son si possible */
+      if (video) {
+        video.muted = false;
+        video.play().catch(function() {
+          video.muted = true;
+          video.play();
+        });
+      }
     });
   });
 
