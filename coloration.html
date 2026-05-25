@@ -179,7 +179,7 @@
     /* ── CARROUSEL AVANT/APRÈS ── */
     .carousel-section {
       padding: clamp(72px,9vw,120px) var(--pad);
-      background: var(--white);
+      background: var(--cream);
     }
     .carousel-head { margin-bottom: 56px; }
     .carousel-h2 {
@@ -227,21 +227,28 @@
     .slide-colorist-name { font-size: .8rem; font-weight: 500; }
     .slide-colorist-role { font-size: .72rem; color: var(--mid); font-weight: 300; }
 
-    /* Arrows */
-    .carousel-arrows { display: flex; gap: 12px; margin-top: 40px; justify-content: flex-end; }
+    /* Arrows — sous la photo */
+    .carousel-arrows {
+      display: flex; gap: 12px; margin-top: 16px;
+      justify-content: flex-start;
+      /* largeur alignée avec la colonne photo (≈ 50% - gap/2) */
+      width: calc(50% - clamp(16px,2vw,32px));
+    }
     .c-arrow {
       width: 52px; height: 52px; border-radius: 50%;
-      border: 1.5px solid var(--light);
+      border: 1.5px solid var(--dark);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; transition: background .3s, border-color .3s, transform .25s var(--ease);
-      background: var(--white);
+      background: transparent;
     }
     .c-arrow svg { width: 20px; height: 20px; color: var(--dark); transition: color .3s; }
     .c-arrow:hover { background: var(--accent); border-color: var(--accent); transform: scale(1.08); }
     .c-arrow:hover svg { color: var(--white); }
 
     /* Dots */
-    .carousel-dots { display: flex; gap: 8px; margin-top: 24px; justify-content: center; }
+    .carousel-dots { display: flex; gap: 8px; margin-top: 20px; justify-content: flex-start;
+      width: calc(50% - clamp(16px,2vw,32px));
+    }
     .c-dot {
       width: 7px; height: 7px; border-radius: 50%;
       background: var(--light); cursor: pointer;
