@@ -98,6 +98,30 @@
     }
     .section-label::before { content: ''; width: 22px; height: 1px; background: var(--mid); }
 
+    /* ── BANDEAU DÉFILANT ── */
+    .ticker {
+      background: var(--cream);
+      border-top: 1px solid var(--light);
+      border-bottom: 1px solid var(--light);
+      overflow: hidden; white-space: nowrap;
+      padding: 14px 0;
+    }
+    .ticker-track {
+      display: inline-flex; gap: 0;
+      animation: ticker-scroll 28s linear infinite;
+    }
+    .ticker:hover .ticker-track { animation-play-state: paused; }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 20px;
+      font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--mid); padding: 0 20px;
+    }
+    .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     /* ── TECHNIQUES ── */
     .techniques {
       padding: clamp(72px,9vw,120px) var(--pad);
@@ -335,6 +359,30 @@
       <img src="coloration/coloration-3.jpg" alt="Coloration FR Coiffure Genève" loading="eager" />
     </div>
   </section>
+
+  <!-- BANDEAU DÉFILANT -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <!-- Série 1 -->
+      <span class="ticker-item">Soins Capillaires<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Coloration Végétale<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Balayage &amp; Mèches<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Lissage Brésilien<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Extensions Naturelles<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Coupe &amp; Coiffage<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Coloration Kératine<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Couleur Signature<span class="ticker-dot"></span></span>
+      <!-- Série 2 (dupliquée pour boucle fluide) -->
+      <span class="ticker-item">Soins Capillaires<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Coloration Végétale<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Balayage &amp; Mèches<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Lissage Brésilien<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Extensions Naturelles<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Coupe &amp; Coiffage<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Coloration Kératine<span class="ticker-dot"></span></span>
+      <span class="ticker-item">Couleur Signature<span class="ticker-dot"></span></span>
+    </div>
+  </div>
 
   <!-- TECHNIQUES -->
   <section class="techniques">
