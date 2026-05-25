@@ -57,7 +57,7 @@
       height: 100svh;
       display: grid; grid-template-columns: 55fr 45fr;
       padding-top: 72px;
-      overflow: hidden;
+      clip-path: inset(0);
     }
     .hero-body {
       display: flex; flex-direction: column; justify-content: flex-end;
@@ -88,7 +88,7 @@
       transition: background .3s, transform .25s var(--ease);
     }
     .btn-fill:hover { background: #b83510; transform: translateY(-2px); }
-    .hero-img { position: relative; overflow: hidden; background: var(--light); height: 100%; }
+    .hero-img { position: relative; overflow: hidden; background: var(--light); }
     .hero-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
     /* ── SECTION TITRE ── */
