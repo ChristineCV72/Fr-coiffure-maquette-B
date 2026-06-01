@@ -1082,13 +1082,10 @@
       intro.style.pointerEvents = 'none';
       setTimeout(function() { intro.style.display = 'none'; }, 900);
 
-      /* Lance la vidéo avec son si possible */
+      /* Lance la vidéo en muet */
       if (video) {
-        video.muted = false;
-        video.play().catch(function() {
-          video.muted = true;
-          video.play();
-        });
+        video.muted = true;
+        video.play();
       }
     });
   });
