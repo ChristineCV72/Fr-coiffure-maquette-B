@@ -685,7 +685,8 @@
     <img src="logo.png" alt="FR Coiffure" class="intro-logo-img" />
   </div>
   <script>
-    if(window.location.search.indexOf('skip=intro')!==-1){
+    if(window.location.search.indexOf('skip=intro')!==-1 || sessionStorage.getItem('skipIntro')==='1'){
+      sessionStorage.removeItem('skipIntro');
       document.getElementById('introScreen').style.display='none';
     }
   </script>
