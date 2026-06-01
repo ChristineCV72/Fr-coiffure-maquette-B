@@ -74,9 +74,9 @@
     .styles-h2 em { font-style: italic; color: var(--accent); }
     .styles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
     .style-card { background: var(--white); overflow: hidden; }
-    .style-img { aspect-ratio: 3/4; overflow: hidden; background: var(--light); }
-    .style-img img { height: 100%; transition: transform .7s var(--ease); }
-    .style-card:hover .style-img img { transform: scale(1.06); }
+    .style-img { aspect-ratio: 3/4; overflow: hidden; background: var(--light); position: relative; }
+    .style-img img, .style-img video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; transition: transform .7s var(--ease); }
+    .style-card:hover .style-img img, .style-card:hover .style-img video { transform: scale(1.06); }
     .style-body { padding: 28px 24px 32px; }
     .style-num { font-size: .62rem; letter-spacing: .14em; color: var(--mid); margin-bottom: 10px; }
     .style-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; margin-bottom: 12px; }
@@ -240,7 +240,7 @@
     <div class="styles-grid">
       <div class="style-card r">
         <div class="style-img">
-          <img src="fred-photo-2.jpg" alt="Coupe femme" loading="lazy" />
+          <video src="video-coupe.mp4" autoplay loop playsinline muted></video>
         </div>
         <div class="style-body">
           <div class="style-num">01</div>
