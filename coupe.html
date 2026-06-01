@@ -93,6 +93,7 @@
     .galerie-cell:hover img { transform: scale(1.05); }
     .galerie-cell.large { grid-column: span 2; }
     .galerie-cell.large img { height: 420px; }
+    .galerie-cell[style*="span 3"] img { height: 480px; }
 
     /* ── CARROUSEL AVANT/APRÈS ── */
     .carousel-section { padding: clamp(72px,9vw,120px) var(--pad); background: var(--cream); }
@@ -277,7 +278,7 @@
       <h2 class="galerie-h2 r" style="transition-delay:.1s">Nos plus belles <em>réalisations</em></h2>
     </div>
     <div class="galerie-grid">
-      <div class="galerie-cell large r">
+      <div class="galerie-cell r" style="grid-column: span 3">
         <img src="photos/photo-fred-2.jpg" alt="Coloration cuivrée FR Coiffure Genève" loading="lazy" />
       </div>
       <div class="galerie-cell r" style="transition-delay:.1s">
