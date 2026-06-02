@@ -169,10 +169,10 @@
       gap: 12px;
     }
     .galerie-cell { overflow: hidden; background: var(--light); }
-    .galerie-cell img { height: 320px; transition: transform .6s var(--ease); }
-    .galerie-cell:hover img { transform: scale(1.05); }
+    .galerie-cell img { width: 100%; height: auto; display: block; object-fit: contain; transition: transform .6s var(--ease); }
+    .galerie-cell:hover img { transform: scale(1.02); }
     .galerie-cell.large { grid-column: span 2; }
-    .galerie-cell.large img { height: 420px; }
+    .galerie-cell.large img { width: 100%; }
 
     /* ── POURQUOI NOUS ── */
     .pourquoi {
@@ -437,17 +437,14 @@
       </h2>
     </div>
     <div class="galerie-grid">
-      <div class="galerie-cell large r">
-        <img src="coloration/coloration-3.jpg" alt="Coiffeuse en action" loading="lazy" />
+      <div class="galerie-cell r">
+        <img src="photos/photo-fred-3.jpg" alt="Coloration chocolat FR Coiffure" loading="lazy" />
       </div>
       <div class="galerie-cell r" style="transition-delay:.1s">
-        <img src="coloration/coloration-1.jpg" alt="Préparation coloration" loading="lazy" />
-      </div>
-      <div class="galerie-cell r" style="transition-delay:.15s">
-        <img src="coloration/coloration-2.jpg" alt="Nuancier couleurs" loading="lazy" />
+        <img src="photos/photo-fred-4.jpg" alt="Balayage blond FR Coiffure" loading="lazy" />
       </div>
       <div class="galerie-cell r" style="transition-delay:.2s">
-        <img src="coloration/coloration-5.png" alt="Produits coloration" loading="lazy" />
+        <img src="photos/photo-fred-2.jpg" alt="Coloration cuivrée FR Coiffure" loading="lazy" />
       </div>
     </div>
   </section>
