@@ -88,12 +88,11 @@
     .galerie-h2 { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; }
     .galerie-h2 em { font-style: italic; color: var(--accent); }
     .galerie-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto; gap: 12px; }
-    .galerie-cell { overflow: hidden; background: var(--light); }
-    .galerie-cell img { height: 320px; transition: transform .6s var(--ease); }
-    .galerie-cell:hover img { transform: scale(1.05); }
+    .galerie-cell { background: var(--light); overflow: hidden; }
+    .galerie-cell img { width: 100%; height: auto; display: block; object-fit: contain; transition: transform .6s var(--ease); }
+    .galerie-cell:hover img { transform: scale(1.02); }
     .galerie-cell.large { grid-column: span 2; }
-    .galerie-cell.large img { height: 420px; }
-    .galerie-cell[style*="span 3"] img { height: 480px; }
+    .galerie-cell[style*="span 3"] img { width: 100%; }
 
     /* ── CARROUSEL AVANT/APRÈS ── */
     .carousel-section { padding: clamp(72px,9vw,120px) var(--pad); background: var(--cream); }
