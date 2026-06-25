@@ -43,31 +43,6 @@
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; border: none; background: none; font-family: inherit; }
 
-    /* ══════════════════════════════════════════
-       CURSOR (desktop only)
-    ══════════════════════════════════════════ */
-    @media (pointer: fine) {
-      body, a, button { cursor: none; }
-    }
-    .c-dot {
-      position: fixed; top: 0; left: 0; z-index: 9999;
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--accent); pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: width .2s var(--ease), height .2s var(--ease);
-      will-change: left, top;
-    }
-    .c-ring {
-      position: fixed; top: 0; left: 0; z-index: 9998;
-      width: 34px; height: 34px; border-radius: 50%;
-      border: 1.5px solid rgba(217,64,24,.4);
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: width .3s var(--ease), height .3s var(--ease), border-color .3s;
-      will-change: left, top;
-    }
-    .c-dot.h  { width: 12px; height: 12px; }
-    .c-ring.h { width: 56px; height: 56px; border-color: rgba(217,64,24,.7); }
 
     /* ══════════════════════════════════════════
        MENU OVERLAY
@@ -692,8 +667,6 @@
   </script>
 
   <!-- CURSOR -->
-  <div class="c-dot" id="cDot"></div>
-  <div class="c-ring" id="cRing"></div>
 
   <!-- MENU OVERLAY -->
   <div class="overlay" id="overlay">
@@ -1098,30 +1071,6 @@
   (function () {
     'use strict';
 
-    /* ── CURSOR ─────────────────────────────── */
-    const dot  = document.getElementById('cDot');
-    const ring = document.getElementById('cRing');
-    const isFine = window.matchMedia('(pointer: fine)').matches;
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    if (isFine) {
-      document.addEventListener('mousemove', function (e) {
-        mx = e.clientX; my = e.clientY;
-        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-      });
-      (function raf() {
-        rx += (mx - rx) * 0.11;
-        ry += (my - ry) * 0.11;
-        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-        requestAnimationFrame(raf);
-      })();
-      document.querySelectorAll('a, button, .svc-item, .team-card, .social-cell').forEach(function (el) {
-        el.addEventListener('mouseenter', function () { dot.classList.add('h'); ring.classList.add('h'); });
-        el.addEventListener('mouseleave', function () { dot.classList.remove('h'); ring.classList.remove('h'); });
-      });
-    } else {
-      dot.style.display = ring.style.display = 'none';
-    }
 
     /* ── MENU ───────────────────────────────── */
     var btn     = document.getElementById('menuBtn');
