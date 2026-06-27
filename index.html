@@ -609,62 +609,9 @@
       .tarifs-cat:nth-last-child(-n+2) { border-bottom: 1px solid var(--light); }
       .tarifs-cat:last-child { border-bottom: none; }
     }
-    /* ══════════════════════════════════════════
-       ÉCRAN D'ENTRÉE
-    ══════════════════════════════════════════ */
-    #introScreen {
-      position: fixed; inset: 0; z-index: 9000;
-      background: #ffffff;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: opacity .9s ease;
-    }
-    #introScreen .intro-logo-img {
-      height: 80px; width: auto;
-      margin-bottom: 48px;
-    }
-    #introScreen .intro-line {
-      width: 1px; height: 180px;
-      background: #cccccc;
-      margin-bottom: 40px;
-      animation: lineGrow 1.2s ease forwards;
-      transform-origin: top;
-    }
-    @keyframes lineGrow {
-      from { transform: scaleY(0); }
-      to   { transform: scaleY(1); }
-    }
-    #introScreen .intro-bienvenue {
-      font-family: var(--sans);
-      font-size: 1.5rem; font-weight: 300;
-      letter-spacing: .1em; color: #222;
-      animation: fadeUp 1s ease .6s both;
-    }
-    #introScreen .intro-hint {
-      position: absolute; bottom: 48px;
-      font-size: .62rem; letter-spacing: .2em;
-      text-transform: uppercase; color: #aaa;
-      animation: fadeUp 1s ease 1s both;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: none; }
-    }
   </style>
 </head>
 <body>
-
-  <!-- ÉCRAN D'ENTRÉE -->
-  <div id="introScreen">
-    <img src="logo.png" alt="FR Coiffure" class="intro-logo-img" />
-  </div>
-  <script>
-    if(window.location.search.indexOf('skip=intro')!==-1 || sessionStorage.getItem('skipIntro')==='1'){
-      sessionStorage.removeItem('skipIntro');
-      document.getElementById('introScreen').style.display='none';
-    }
-  </script>
 
   <!-- CURSOR -->
 
@@ -1042,31 +989,6 @@
     iconOff.style.display = video.muted ? ''      : 'none';
   }
 
-  /* ── ÉCRAN D'ENTRÉE ─────────────────────── */
-  document.addEventListener('DOMContentLoaded', function() {
-    var intro = document.getElementById('introScreen');
-    var video = document.getElementById('heroVideo');
-
-    /* Si on vient d'une page interne, on saute l'intro */
-    if (window.location.search.indexOf('skip=intro') !== -1) {
-      intro.style.display = 'none';
-      if (video) { video.muted = true; video.play(); }
-      return;
-    }
-
-    intro.addEventListener('click', function() {
-      /* Ferme l'écran d'accueil */
-      intro.style.opacity = '0';
-      intro.style.pointerEvents = 'none';
-      setTimeout(function() { intro.style.display = 'none'; }, 900);
-
-      /* Lance la vidéo en muet */
-      if (video) {
-        video.muted = true;
-        video.play();
-      }
-    });
-  });
 
   (function () {
     'use strict';
