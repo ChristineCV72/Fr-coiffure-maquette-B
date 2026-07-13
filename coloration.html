@@ -14,7 +14,7 @@
       --mid:    #8C8C8C;
       --light:  #E8E8E8;
       --white:  #FFFFFF;
-      --cream:  #FAF8F5;
+      --cream:  #ddd5c8;
       --serif:  'Cormorant Garamond', Georgia, serif;
       --sans:   'DM Sans', system-ui, sans-serif;
       --ease:   cubic-bezier(0.16, 1, 0.3, 1);
@@ -22,7 +22,8 @@
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); color: var(--dark); background: var(--white); -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--sans); color: var(--dark); background: var(--white); -webkit-font-smoothing: antialiased; transition: background .4s ease; }
+    body.swapped { --white: #ddd5c8; --cream: #FFFFFF; }
     a { color: inherit; text-decoration: none; }
     img { display: block; width: 100%; object-fit: cover; }
 
@@ -31,7 +32,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: 72px; display: flex; align-items: center; justify-content: space-between;
       padding: 0 var(--pad);
-      background: rgba(255,255,255,.95);
+      background: color-mix(in srgb, var(--white) 95%, transparent);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--light);
     }
@@ -51,6 +52,12 @@
       transition: background .3s;
     }
     .nav-cta:hover { background: #b83510; }
+    .nav-end { display: flex; align-items: center; gap: 10px; }
+    .theme-toggle { display: flex; align-items: center; width: 40px; height: 22px; border-radius: 100px; border: 1.5px solid var(--light); overflow: hidden; cursor: pointer; padding: 0; transition: border-color .3s, box-shadow .3s; flex-shrink: 0; }
+    .theme-toggle:hover { border-color: var(--mid); box-shadow: 0 0 0 3px var(--light); }
+    .tt-half { display: block; flex: 1; height: 100%; transition: background .4s; }
+    .tt-white { background: #FFFFFF; }
+    .tt-cream { background: #ddd5c8; }
 
     /* ── HERO ── */
     .hero {
@@ -337,10 +344,16 @@
       Retour
     </a>
     <img src="logo.png" alt="FR Coiffure" class="nav-logo-img" />
-    <a href="tel:+41223200000" class="nav-cta">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91A16 16 0 0016.09 17.09l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-      <span>Prendre rendez-vous</span>
-    </a>
+    <div class="nav-end">
+      <button class="theme-toggle" id="themeToggle" title="Changer les fonds blanc / beige" aria-label="Basculer fond blanc et beige">
+        <span class="tt-half tt-white"></span>
+        <span class="tt-half tt-cream"></span>
+      </button>
+      <a href="tel:+41223200000" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91A16 16 0 0016.09 17.09l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <span>Prendre rendez-vous</span>
+      </a>
+    </div>
   </header>
 
   <!-- HERO -->
@@ -731,6 +744,18 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.r').forEach(function(el) { obs.observe(el); });
+  })();
+  (function(){
+    var btn = document.getElementById('themeToggle');
+    var wHalf = btn.querySelector('.tt-white');
+    var cHalf = btn.querySelector('.tt-cream');
+    var swapped = false;
+    btn.addEventListener('click', function(){
+      swapped = !swapped;
+      document.body.classList.toggle('swapped', swapped);
+      wHalf.style.background = swapped ? '#ddd5c8' : '#FFFFFF';
+      cHalf.style.background = swapped ? '#FFFFFF' : '#ddd5c8';
+    });
   })();
   </script>
 </body>
