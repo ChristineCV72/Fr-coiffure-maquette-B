@@ -38,7 +38,9 @@
       background: var(--white);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      transition: background .4s ease;
     }
+    body.swapped { --white: #FAF8F5; --cream: #FFFFFF; }
     img { display: block; width: 100%; height: 100%; object-fit: cover; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; border: none; background: none; font-family: inherit; }
@@ -96,7 +98,7 @@
       border-bottom: 1px solid transparent;
     }
     .nav.scrolled {
-      background: rgba(255,255,255,.93);
+      background: color-mix(in srgb, var(--white) 93%, transparent);
       backdrop-filter: blur(18px) saturate(1.4);
       border-color: var(--light);
     }
@@ -129,6 +131,19 @@
     }
     .nav-cta:hover { background: #b83510; transform: translateY(-1px); }
     .nav-cta svg { width: 13px; height: 13px; }
+    .nav-end { display: flex; align-items: center; gap: 10px; }
+    .theme-toggle {
+      display: flex; align-items: center;
+      width: 40px; height: 22px; border-radius: 100px;
+      border: 1.5px solid var(--light);
+      overflow: hidden; cursor: pointer; padding: 0;
+      transition: border-color .3s, box-shadow .3s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--mid); box-shadow: 0 0 0 3px var(--light); }
+    .tt-half { display: block; flex: 1; height: 100%; transition: background .4s; }
+    .tt-white { background: #FFFFFF; }
+    .tt-cream { background: #FAF8F5; }
 
     /* ══════════════════════════════════════════
        SCROLL REVEAL
@@ -643,10 +658,16 @@
     <a href="#hero" class="nav-logo">
       <img src="logo.png" alt="FR Coiffure" class="nav-logo-img">
     </a>
-    <a href="tel:+41223200000" class="nav-cta">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Prendre rendez-vous
-    </a>
+    <div class="nav-end">
+      <button class="theme-toggle" id="themeToggle" title="Changer les fonds blanc / beige" aria-label="Basculer fond blanc et beige">
+        <span class="tt-half tt-white"></span>
+        <span class="tt-half tt-cream"></span>
+      </button>
+      <a href="tel:+41223200000" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Prendre rendez-vous
+      </a>
+    </div>
   </header>
 
   <!-- ░░ HERO ░░ -->
@@ -979,6 +1000,20 @@
   </footer>
 
   <script>
+  /* ── FOND BLANC / BEIGE ────────────────── */
+  (function () {
+    var btn = document.getElementById('themeToggle');
+    var wHalf = btn.querySelector('.tt-white');
+    var cHalf = btn.querySelector('.tt-cream');
+    var swapped = false;
+    btn.addEventListener('click', function () {
+      swapped = !swapped;
+      document.body.classList.toggle('swapped', swapped);
+      wHalf.style.background = swapped ? '#FAF8F5' : '#FFFFFF';
+      cHalf.style.background = swapped ? '#FFFFFF' : '#FAF8F5';
+    });
+  })();
+
   /* ── SON VIDÉO ─────────────────────────── */
   function toggleSound() {
     var video = document.getElementById('heroVideo');
