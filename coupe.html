@@ -190,16 +190,10 @@
       Retour
     </a>
     <img src="logo.png" alt="FR Coiffure" class="nav-logo-img" />
-    <div class="nav-end">
-      <button class="theme-toggle" id="themeToggle" title="Changer les fonds blanc / beige" aria-label="Basculer fond blanc et beige">
-        <span class="tt-half tt-white"></span>
-        <span class="tt-half tt-cream"></span>
-      </button>
-      <a href="tel:+41223200000" class="nav-cta">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91A16 16 0 0016.09 17.09l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        <span>Prendre rendez-vous</span>
-      </a>
-    </div>
+    <a href="tel:+41223200000" class="nav-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91A16 16 0 0016.09 17.09l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <span>Prendre rendez-vous</span>
+    </a>
   </header>
 
   <!-- HERO -->
@@ -453,18 +447,7 @@
     var obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } }); }, {threshold:0.1});
     document.querySelectorAll('.r').forEach(function(el){ obs.observe(el); });
   })();
-  (function(){
-    var btn = document.getElementById('themeToggle');
-    var wHalf = btn.querySelector('.tt-white');
-    var cHalf = btn.querySelector('.tt-cream');
-    var swapped = false;
-    btn.addEventListener('click', function(){
-      swapped = !swapped;
-      document.body.classList.toggle('swapped', swapped);
-      wHalf.style.background = swapped ? '#ddd5c8' : '#FFFFFF';
-      cHalf.style.background = swapped ? '#FFFFFF' : '#ddd5c8';
-    });
-  })();
+  if (localStorage.getItem('frTheme') === 'beige') { document.body.classList.add('swapped'); }
   </script>
 </body>
 </html>

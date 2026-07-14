@@ -395,16 +395,10 @@
     <a href="index.html" class="nav-logo">
       <img src="logo.png" alt="FR Coiffure" class="nav-logo-img">
     </a>
-    <div class="nav-end">
-      <button class="theme-toggle" id="themeToggle" title="Changer les fonds blanc / beige" aria-label="Basculer fond blanc et beige">
-        <span class="tt-half tt-white"></span>
-        <span class="tt-half tt-cream"></span>
-      </button>
-      <a href="tel:+41223200000" class="nav-cta">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Prendre rendez-vous
-      </a>
-    </div>
+    <a href="tel:+41223200000" class="nav-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Prendre rendez-vous
+    </a>
   </header>
 
   <!-- ░░ PAGE HERO ░░ -->
@@ -747,20 +741,6 @@
   (function () {
     'use strict';
 
-    /* THEME TOGGLE */
-    (function(){
-      var btn = document.getElementById('themeToggle');
-      var wHalf = btn.querySelector('.tt-white');
-      var cHalf = btn.querySelector('.tt-cream');
-      var swapped = false;
-      btn.addEventListener('click', function(){
-        swapped = !swapped;
-        document.body.classList.toggle('swapped', swapped);
-        wHalf.style.background = swapped ? '#ddd5c8' : '#FFFFFF';
-        cHalf.style.background = swapped ? '#FFFFFF' : '#ddd5c8';
-      });
-    })();
-
     /* MENU */
     var btn     = document.getElementById('menuBtn');
     var overlay = document.getElementById('overlay');
@@ -816,6 +796,7 @@
     });
 
   })();
+  if (localStorage.getItem('frTheme') === 'beige') { document.body.classList.add('swapped'); }
   </script>
 </body>
 </html>

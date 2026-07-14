@@ -1005,12 +1005,17 @@
     var btn = document.getElementById('themeToggle');
     var wHalf = btn.querySelector('.tt-white');
     var cHalf = btn.querySelector('.tt-cream');
-    var swapped = false;
+    var swapped = localStorage.getItem('frTheme') === 'beige';
+    function applyTheme(s) {
+      document.body.classList.toggle('swapped', s);
+      wHalf.style.background = s ? '#ddd5c8' : '#FFFFFF';
+      cHalf.style.background = s ? '#FFFFFF' : '#ddd5c8';
+    }
+    applyTheme(swapped);
     btn.addEventListener('click', function () {
       swapped = !swapped;
-      document.body.classList.toggle('swapped', swapped);
-      wHalf.style.background = swapped ? '#FAF8F5' : '#FFFFFF';
-      cHalf.style.background = swapped ? '#FFFFFF' : '#FAF8F5';
+      localStorage.setItem('frTheme', swapped ? 'beige' : 'white');
+      applyTheme(swapped);
     });
   })();
 
